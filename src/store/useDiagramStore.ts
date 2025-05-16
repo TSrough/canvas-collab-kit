@@ -1,4 +1,3 @@
-
 import { create } from 'zustand';
 import { nanoid } from 'nanoid';
 import { DiagramState, Point, Shape, ShapeType, ToolType } from '@/types/diagram';
@@ -49,35 +48,39 @@ export const useDiagramStore = create<{
   addShape: (shapeData) => {
     const id = nanoid();
     set((state) => {
-      // We need to cast shapeData to a specific Shape type, not just the generic Shape union
+      // Create the appropriate shape based on the type with proper type assertion
       let shape: Shape;
       
-      // Create the appropriate shape based on the type
-      if ('radius' in shapeData && shapeData.type === ShapeType.CIRCLE) {
+      if (shapeData.type === ShapeType.CIRCLE) {
         shape = {
           ...shapeData,
           id,
+          type: ShapeType.CIRCLE,
         } as Shape;
-      } else if ('text' in shapeData && shapeData.type === ShapeType.TEXT) {
+      } else if (shapeData.type === ShapeType.TEXT) {
         shape = {
           ...shapeData,
           id,
+          type: ShapeType.TEXT,
         } as Shape;
-      } else if ('points' in shapeData && shapeData.type === ShapeType.CONNECTOR) {
+      } else if (shapeData.type === ShapeType.CONNECTOR) {
         shape = {
           ...shapeData,
           id,
+          type: ShapeType.CONNECTOR,
         } as Shape;
-      } else if ('childIds' in shapeData && shapeData.type === ShapeType.GROUP) {
+      } else if (shapeData.type === ShapeType.GROUP) {
         shape = {
           ...shapeData,
           id,
+          type: ShapeType.GROUP,
         } as Shape;
       } else {
         // Default to rectangle
         shape = {
           ...shapeData,
           id,
+          type: ShapeType.RECTANGLE,
         } as Shape;
       }
 

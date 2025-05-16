@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect, useState } from 'react';
 import { Stage, Layer, Rect, Group } from 'react-konva';
 import { useDiagramStore } from '@/store/useDiagramStore';
@@ -192,7 +193,7 @@ export const DiagramCanvas: React.FC = () => {
       // Create shape based on the tool
       if (tool === ToolType.RECTANGLE && width > 5 && height > 5) {
         const newShape = {
-          type: ShapeType.RECTANGLE, // Use specific enum value
+          type: ShapeType.RECTANGLE as ShapeType.RECTANGLE,
           position: { x: minX, y: minY },
           size: { width, height },
           rotation: 0,
@@ -211,7 +212,7 @@ export const DiagramCanvas: React.FC = () => {
         const centerY = minY + height / 2;
         
         const newShape = {
-          type: ShapeType.CIRCLE, // Use specific enum value
+          type: ShapeType.CIRCLE as ShapeType.CIRCLE,
           position: { x: centerX, y: centerY },
           radius,
           rotation: 0,
@@ -226,7 +227,7 @@ export const DiagramCanvas: React.FC = () => {
       }
       else if (tool === ToolType.TEXT && width > 5 && height > 5) {
         const newShape = {
-          type: ShapeType.TEXT, // Use specific enum value
+          type: ShapeType.TEXT as ShapeType.TEXT,
           position: { x: minX, y: minY },
           size: { width, height },
           text: 'Double click to edit',
