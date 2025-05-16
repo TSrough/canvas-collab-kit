@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useState } from 'react';
 import { Stage, Layer, Rect, Group } from 'react-konva';
 import { useDiagramStore } from '@/store/useDiagramStore';
@@ -81,7 +80,6 @@ export const DiagramCanvas: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [deleteSelectedShapes, deselectAllShapes, setTool, setZoom, zoom]);
 
-  // Stage event handlers
   const handleWheel = (e: KonvaEventObject<WheelEvent>) => {
     e.evt.preventDefault();
     
@@ -253,7 +251,6 @@ export const DiagramCanvas: React.FC = () => {
     setDragStartPoint(null);
   };
   
-  // Fix the contextmenu event type
   const handleContextMenu = (e: KonvaEventObject<MouseEvent>) => {
     e.evt.preventDefault();
   };
