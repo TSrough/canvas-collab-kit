@@ -1,4 +1,3 @@
-
 import { create } from 'zustand';
 import { nanoid } from 'nanoid';
 import { DiagramState, Point, Shape, ShapeType, ToolType } from '@/types/diagram';
@@ -51,8 +50,7 @@ export const useDiagramStore = create<{
     set((state) => {
       const shape = { 
         ...shapeData, 
-        id,
-        selected: false,
+        id
       } as Shape;
 
       return {
