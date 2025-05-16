@@ -4,6 +4,7 @@ import { Header } from './Header';
 import { DiagramCanvas } from '../canvas/DiagramCanvas';
 import { useDiagramStore } from '@/store/useDiagramStore';
 import { useToast } from '@/components/ui/use-toast';
+import { Shape } from '@/types/diagram';
 
 export const DiagramEditor: React.FC = () => {
   const { toast } = useToast();
@@ -84,7 +85,14 @@ export const DiagramEditor: React.FC = () => {
       const reader = new FileReader();
       reader.onload = (event) => {
         try {
-          const data = JSON.parse(event.target?.result as string);
+          // Use type assertion to ensure parseResult is typed correctly
+          const result = event.target?.result;
+          if (typeof result !== 'string') return;
+          
+          const data = JSON.parse(result) as {
+            shapes: Record<string, Shape>;
+            selectedIds: string[];
+          };
           
           // Reset store with loaded data
           const store = useDiagramStore.getState();
@@ -97,7 +105,8 @@ export const DiagramEditor: React.FC = () => {
           
           // Then add loaded shapes
           for (const [id, shape] of Object.entries(data.shapes)) {
-            const newShape = {...shape, id};
+            // Make a copy of the shape with its id
+            const newShape = {...shape};
             // Use the addShape method which generates a new ID, so we need to update later
             const newId = store.addShape(newShape);
             

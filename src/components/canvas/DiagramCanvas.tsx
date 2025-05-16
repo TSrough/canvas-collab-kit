@@ -253,7 +253,8 @@ export const DiagramCanvas: React.FC = () => {
     setDragStartPoint(null);
   };
   
-  const handleContextMenu = (e: KonvaEventObject<ContextMenuEvent>) => {
+  // Fix the contextmenu event type
+  const handleContextMenu = (e: KonvaEventObject<MouseEvent>) => {
     e.evt.preventDefault();
   };
 
